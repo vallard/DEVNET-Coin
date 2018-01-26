@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.18;
 
 // Code borrowed and modified from https://theethereum.wiki/w/index.php/ERC20_Token_Standard
 // Use is just an example for Cisco Live DEVNET class and is provided as is. 
@@ -164,6 +164,7 @@ contract DEVNETCoin is ERC20Interface {
       buyVXT();
     }
 
+    // give all them money to val or tom
     function withdraw() public {
       uint amount  = pendingWithdrawals[msg.sender];
       pendingWithdrawals[msg.sender] = 0;
@@ -176,6 +177,7 @@ contract DEVNETCoin is ERC20Interface {
     }
     
     function kill() public valTomOnly {
+    
       selfdestruct(val);
     }
 }

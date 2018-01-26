@@ -1,0 +1,137 @@
+/* nav color: #292e39 */
+
+body{
+  background-color : #f1f4f8;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* main nav bar on top */
+.navbar-inverse {
+  /*background-color: #293038; */
+  background-color: #081a64;
+  background-color: #050d1d;
+  height: 50px;
+}
+.navbar-inverse .navbar-text {
+  color: #fff;
+  letter-spacing: 1px;
+  margin-left: 40px;
+  float: left;
+   
+}
+
+a .fa {
+  color: #fff;
+}
+
+/* steps bar */
+.navbar-light {
+  background-color: #fff;
+  height: 40px;
+}
+
+.main-panel {
+  margin-top: 40px;
+
+}
+
+.scrolling-list {
+  height: 350px;
+  overflow: auto;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/*
+Feedback field
+*/
+#feedback {
+    background-color: white;
+    width: 220px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    position: fixed;
+    bottom:0;
+    right: 0;
+    border-width: 1px;
+    border-color: grey;
+    border-top-style: solid;
+    border-left-style: solid;
+    border-right-style: off;
+    border-bottom-style: off;
+}
+
+#feedback:hover{
+    background-color: white;
+    border-width: 1px;
+    border-color: grey;
+    border-top-style: solid;
+    border-left-style: solid;
+    border-right-style: off;
+    border-bottom-style: off;
+}
+
+#destroyoverlay {
+    text-align: center;
+    font-size: 1.25em;
+    background-color: white;
+    width: 500px;
+    height: 220px;
+    box-shadow: 5px 5px 14px grey;
+    border-radius: 25px;
+    padding: 40px 50px 0px 50px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+
+#feedbackoverlay{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    line-height: 30px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    z-index:9999;
+    color: black;
+    display:none;
+}
+
+#feedbackform{
+    position: relative;
+    text-align: center;
+    top:200px;
+    background:rgba(0, 0, 0, 0.4); 
+    width: 550px;
+    height: 225px;
+    color: white;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: 0 auto;
+}
+
+#closeform{
+    position: absolute;
+    right:8px;
+    top:3px;
+    cursor:pointer;
+    font-weight: bold;
+    font-size: 105%
+}
+
+.jumbotron {
+  background-image: url("../images/earth2.png");
+  background-size: cover;
+  padding-top: 20%;
+  padding-bottom: 20%;
+  color: #fff;
+}
