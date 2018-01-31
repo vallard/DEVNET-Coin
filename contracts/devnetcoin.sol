@@ -62,6 +62,8 @@ contract DEVNETCoin is ERC20Interface {
     uint8 public decimals;
     uint public _totalSupply;
     // people that own our coin.
+    uint16 userCount;
+    address[] public accounts;
     mapping(address => uint256) balances;
     // mapping of who can withdraw from who.
     mapping(address => mapping(address => uint)) allowed;
@@ -72,16 +74,24 @@ contract DEVNETCoin is ERC20Interface {
     // Constructor when contract is created. 
     function DEVNETCoin(address _val, address _tom) public {
       name = "DEVNET|Coin";
-      symbol = "VXT2";
+      symbol = "VXT6";
       decimals = 18;
-      _totalSupply = 21000000 * 10**uint(decimals);
+      _totalSupply = 20000000 * 10**uint(decimals);
       val = _val;
       tom = _tom;
-      balances[val] = _totalSupply / 2;
-      balances[tom] = _totalSupply / 2;
-      Transfer(address(0), val, _totalSupply / 2);
-      Transfer(address(0), tom, _totalSupply / 2);
+      balances[val] = _totalSupply / 4;
+      balances[tom] = _totalSupply / 4;
+      accounts.push(val);
+      accounts.push(tom);
+      userCount = 2;
+      Transfer(address(0), val, _totalSupply / 4);
+      Transfer(address(0), tom, _totalSupply / 4);
       // 10,500,000,000,000
+    }
+
+    // get item count
+    function getAccountQuantity() public constant returns (uint count) {
+      return userCount;
     }
 
     // get the total supply 
@@ -97,7 +107,7 @@ contract DEVNETCoin is ERC20Interface {
     // send tokens from one account to another address. 
     function transfer(address to, uint tokens) public returns (bool success) {
       // notice we use the safemath here 
-      tokens = tokens * 10**uint(decimals); 
+      //tokens = tokens;
       balances[msg.sender] = balances[msg.sender].sub(tokens);
       balances[to] = balances[to].add(tokens);
       Transfer(msg.sender, to, tokens);
@@ -139,7 +149,7 @@ contract DEVNETCoin is ERC20Interface {
         uint tokensRemaining = _totalSupply;
         uint tokensBought = 0;
         require(_totalSupply > 0);
-        uint etherReceived = msg.value/(10**18); 
+        uint etherReceived = msg.value; 
         
         if (tokensRemaining >= etherReceived * 100) {
           tokensBought = etherReceived * 100;
@@ -148,15 +158,20 @@ contract DEVNETCoin is ERC20Interface {
           tokensBought = tokensRemaining;
           tokensRemaining = 0;
         }
-        
-        for (uint i = 0; i < tokensBought; i++) {
-          balances[msg.sender].add(1);
+        // make sure sender doesnt already exist.  If they don't, add new.  
+
+        if (balances[msg.sender] == 0) {
+          accounts.push(msg.sender);
+          userCount++;
         }
+        
+        balances[msg.sender].add(tokensBought);
+  
+      
+        Transfer(address(0), msg.sender, tokensBought);
 
         pendingWithdrawals[val] += msg.value / 2;
         pendingWithdrawals[tom] += msg.value / 2;
-        
-        // divide by 100 to get the ValTom coins. 
     } 
 
     // if people want to buy eth then we will send them tokens. 
@@ -177,7 +192,6 @@ contract DEVNETCoin is ERC20Interface {
     }
     
     function kill() public valTomOnly {
-    
       selfdestruct(val);
     }
 }

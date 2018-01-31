@@ -1,6 +1,8 @@
 import {put, all, takeEvery } from 'redux-saga/effects'
 import Web3 from 'web3'
 import * as actions from '../actions'
+import getAbi from './abi'
+
 //import blockchainAPI from '../services/blockchain'
 
 
@@ -15,104 +17,12 @@ export function* get_addresses() {
     return yield put(actions.gotError("not connected to blockchain"))
   } 
 
-  var abiArray = [
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "id",
-				"type": "uint16"
-			}
-		],
-		"name": "getItem",
-		"outputs": [
-			{
-				"name": "iname",
-				"type": "string"
-			},
-			{
-				"name": "loc",
-				"type": "string"
-			},
-			{
-				"name": "Url",
-				"type": "string"
-			},
-			{
-				"name": "add",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "countItemList",
-		"outputs": [
-			{
-				"name": "count",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "url",
-				"type": "string"
-			},
-			{
-				"name": "val",
-				"type": "string"
-			},
-			{
-				"name": "Add",
-				"type": "address"
-			}
-		],
-		"name": "addItem",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "id",
-				"type": "uint16"
-			}
-		],
-		"name": "removeItem",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	}
-] ;
+  var abiArray = getAbi(); 
   // https://medium.com/@tmyjoe/dapps-how-to-get-elements-of-array-in-a-contract-c61b16b6c438
   var MyContract = w3.eth.contract(abiArray);
-  var contractAddress = "0x72487018a021e66fdd3f18c92f4575faffed9e36";
-  var registry = MyContract.at(contractAddress);
-  const numOfElements = registry.countItemList();
+  var contractAddress = "0x4b2aa62f6736ce3dc9910e9ad4c701495edc4a13";
+  var bank = MyContract.at(contractAddress);
+  const numOfElements = bank.countItemList();
   console.log("number of elements = " + numOfElements)
   const results  = [];
   for (let i = 0; i < numOfElements; i++) {
