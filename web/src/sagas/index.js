@@ -20,15 +20,17 @@ export function* get_addresses() {
   var abiArray = getAbi(); 
   // https://medium.com/@tmyjoe/dapps-how-to-get-elements-of-array-in-a-contract-c61b16b6c438
   var MyContract = w3.eth.contract(abiArray);
-  var contractAddress = "0x4b2aa62f6736ce3dc9910e9ad4c701495edc4a13";
+  var contractAddress = "0xc9e8db2294f6e74be82e4614e46413b41aa649b5";
   var bank = MyContract.at(contractAddress);
-  const numOfElements = bank.countItemList();
+  const numOfElements = bank.getAccountQuantity();
   console.log("number of elements = " + numOfElements)
   const results  = [];
   for (let i = 0; i < numOfElements; i++) {
-    const elem = registry.getItem(i);
-    console.log(elem);
-    results.push(elem);
+    var addr = bank.accounts(i);
+    const balance = bank.balanceOf(addr);
+    
+    console.log([addr, balance.c]);
+    results.push([addr, balance.c]);
   }
   return yield put(actions.gotAddresses(results))
 } 

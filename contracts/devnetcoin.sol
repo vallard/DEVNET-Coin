@@ -74,7 +74,7 @@ contract DEVNETCoin is ERC20Interface {
     // Constructor when contract is created. 
     function DEVNETCoin(address _val, address _tom) public {
       name = "DEVNET|Coin";
-      symbol = "VXT6";
+      symbol = "DEV";
       decimals = 18;
       _totalSupply = 20000000 * 10**uint(decimals);
       val = _val;
@@ -165,7 +165,7 @@ contract DEVNETCoin is ERC20Interface {
           userCount++;
         }
         
-        balances[msg.sender].add(tokensBought);
+        balances[msg.sender] = balances[msg.sender] + tokensBought;
   
       
         Transfer(address(0), msg.sender, tokensBought);

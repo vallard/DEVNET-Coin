@@ -9,10 +9,11 @@ const Body = () => (
             </center>
           </h1>
           <hr className="my-4"/>
-          <p className="lead">
-            <center>Proof of Concept Crypto Currency Cisco Live 2018 
+          <div className="lead" >
+            <center> 
+              Proof of Concept Crypto Currency Cisco Live 2018 
             </center>
-          </p>
+          </div>
         </div>
       </div>
       <div className="container">
@@ -23,7 +24,7 @@ const Body = () => (
           <li>Create a wallet on the <a href="https://github.com/kovan-testnet/proposal">kovan</a> test network.  This can be done by visiting <a href="https://www.myetherwallet.com">www.myetherwallet.com/</a> selecting the <b>Network Kovan</b> and creating the wallet.<br/>
           <i>Watch for phishing schemes here and make sure you are really on this website!  If you are protected by OpenDNS you are safe!</i></li> 
           <li>Get some of your own KETH!  This is done by going to the <a href="https://gitter.im/kovan-testnet/faucet">Keth Faucet</a>.  Put in your public address and they will send you 5 KETHs.  You're starting to get some real money now!</li>
-          <li>If you are at Cisco Live then you can put this address into the Cisco Spark channel and we'll send you some DEVNET|Coin!</li>
+          <li>Buy the token by sending money through myetherwallet to <a href="https://kovan.etherscan.io/token/0xc9e8db2294f6e74be82e4614e46413b41aa649b5">0xc9e8db2294f6e74be82e4614e46413b41aa649b5</a></li>
         </ol>
       </div>
     </div>
