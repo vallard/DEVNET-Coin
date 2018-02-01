@@ -18,8 +18,8 @@ const VXT = ({addresses}) => (
                 Array.isArray(a) ?  
                   <tr  key={a}>
                     <th scope="row">{ index }</th>
-                    <td>{a[0]}</td>
-                    <td>{a[1] }</td>
+                    <td><a href={"https://kovan.etherscan.io/address/" + a[0]} > {a[0]}</a></td>
+                    <td>{a[1] / 10000 }</td>
                   </tr>
                   :
                   <tr key={a}>
