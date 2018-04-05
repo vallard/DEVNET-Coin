@@ -70,22 +70,38 @@ contract DEVNETCoin is ERC20Interface {
     mapping(address => uint) pendingWithdrawals;
     address public val;
     address public tom;
+    address public chris;
+    address public roger;
+    address public bryan;
+    address public hank;
 
     // Constructor when contract is created. 
-    function DEVNETCoin(address _val, address _tom) public {
+    function DEVNETCoin(address _val, address _tom, address _chris, address _hank, address _roger, address _bryan) public {
       name = "DEVNET|Coin";
       symbol = "DEV";
       decimals = 18;
-      _totalSupply = 20000000 * 10**uint(decimals);
+      _totalSupply = 24000000 * 10**uint(decimals);
       val = _val;
       tom = _tom;
-      balances[val] = _totalSupply / 4;
-      balances[tom] = _totalSupply / 4;
+      chris = _chris;
+      hank = _hank;
+      bryan = _bryan;
+      roger = _roger;
+      balances[val] = _totalSupply / 12;
+      balances[tom] = _totalSupply / 12;
+      balances[chris] = _totalSupply / 12;
+      balances[hank] = _totalSupply / 12;
+      balances[bryan] = _totalSupply / 12;
+      balances[roger] = _totalSupply / 12;
       accounts.push(val);
       accounts.push(tom);
       userCount = 2;
-      Transfer(address(0), val, _totalSupply / 4);
-      Transfer(address(0), tom, _totalSupply / 4);
+      Transfer(address(0), val, _totalSupply / 12);
+      Transfer(address(0), tom, _totalSupply / 12);
+      Transfer(address(0), chris, _totalSupply / 12);
+      Transfer(address(0), hank, _totalSupply / 12);
+      Transfer(address(0), bryan, _totalSupply / 12);
+      Transfer(address(0), roger, _totalSupply / 12);
       // 10,500,000,000,000
     }
 
@@ -144,7 +160,7 @@ contract DEVNETCoin is ERC20Interface {
     } 
 
    
-    function buyVXT() public payable {
+    function buyDEV() public payable {
 
         uint tokensRemaining = _totalSupply;
         uint tokensBought = 0;
@@ -170,13 +186,14 @@ contract DEVNETCoin is ERC20Interface {
       
         Transfer(address(0), msg.sender, tokensBought);
 
-        pendingWithdrawals[val] += msg.value / 2;
-        pendingWithdrawals[tom] += msg.value / 2;
+        pendingWithdrawals[val] += msg.value / 3;
+        pendingWithdrawals[chris] += msg.value / 3;
+        pendingWithdrawals[tom] += msg.value / 3;
     } 
 
     // if people want to buy eth then we will send them tokens. 
     function () public payable {
-      buyVXT();
+      buyDEV();
     }
 
     // give all them money to val or tom
@@ -186,12 +203,12 @@ contract DEVNETCoin is ERC20Interface {
       msg.sender.transfer(amount);
     }
 
-    modifier valTomOnly() {
-      require(msg.sender == val || msg.sender == tom);
+    modifier usOnly() {
+      require(msg.sender == val || msg.sender == chris || msg.sender == tom);
       _;
     }
     
-    function kill() public valTomOnly {
+    function kill() public usOnly {
       selfdestruct(val);
     }
 }
