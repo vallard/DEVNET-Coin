@@ -11,14 +11,14 @@ const Body = () => (
           <hr className="my-4"/>
           <div className="lead" >
             <center>
-              Proof of Concept Crypto Currency Cisco Live 2018
+              Proof of Concept Crypto Currency DevNet CREATE 2018
             </center>
           </div>
         </div>
       </div>
       <div className="container">
         <h2 className="page-header">Ready?</h2>
-        <p className="lead">This is a proof of concept coin. If you buy this with real money you are wasting it.  But let's have some fun!
+        <p className="lead">This is a proof of concept coin. If you buy this with real money you are wasting it.  But time for some fun!
         </p>
         <ol>
           <li>First, it’s a good idea to install the <a href="https://metamask.io">MetaMask</a> plugin on your browser. It gives you a single place to access your wallets (which you will create next) and also warns you if you go to any phishing sites by mistake - and there’s plenty of them!</li>
