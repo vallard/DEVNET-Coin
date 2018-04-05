@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // Code borrowed and modified from https://theethereum.wiki/w/index.php/ERC20_Token_Standard
-// Use is just an example for Cisco Live DEVNET class and is provided as is. 
+// Use is just an example for Cisco Live DEVNET class and is provided as is.
 
 library SafeMath {
 
@@ -54,7 +54,7 @@ contract ApproveAndCallFallBack {
 
 
 contract DEVNETCoin is ERC20Interface {
-    // add some function to uint to make it safe. 
+    // add some function to uint to make it safe.
     using SafeMath for uint;
     // information about the coin.
     string public name;
@@ -71,7 +71,7 @@ contract DEVNETCoin is ERC20Interface {
     address public val;
     address public tom;
 
-    // Constructor when contract is created. 
+    // Constructor when contract is created.
     function DEVNETCoin(address _val, address _tom) public {
       name = "DEVNET|Coin";
       symbol = "DEV";
@@ -84,8 +84,8 @@ contract DEVNETCoin is ERC20Interface {
       accounts.push(val);
       accounts.push(tom);
       userCount = 2;
-      Transfer(address(0), val, _totalSupply / 4);
-      Transfer(address(0), tom, _totalSupply / 4);
+      emit Transfer(address(0), val, _totalSupply / 4);
+      emit Transfer(address(0), tom, _totalSupply / 4);
       // 10,500,000,000,000
     }
 
@@ -94,7 +94,7 @@ contract DEVNETCoin is ERC20Interface {
       return userCount;
     }
 
-    // get the total supply 
+    // get the total supply
     function totalSupply() public constant returns (uint) {
       return _totalSupply - balances[address(0)];
     }
@@ -104,53 +104,53 @@ contract DEVNETCoin is ERC20Interface {
       return balances[tokenOwner];
     }
 
-    // send tokens from one account to another address. 
+    // send tokens from one account to another address.
     function transfer(address to, uint tokens) public returns (bool success) {
-      // notice we use the safemath here 
+      // notice we use the safemath here
       //tokens = tokens;
       balances[msg.sender] = balances[msg.sender].sub(tokens);
       balances[to] = balances[to].add(tokens);
-      Transfer(msg.sender, to, tokens);
+      emit Transfer(msg.sender, to, tokens);
       return true;
     }
 
-    // approve someone to be able to transfer tokens from your account. 
+    // approve someone to be able to transfer tokens from your account.
     function approve(address spender, uint tokens) public returns (bool success) {
       allowed[msg.sender][spender] = tokens;
-      Approval(msg.sender, spender, tokens); 
+      emit Approval(msg.sender, spender, tokens);
       return true;
     }
-   
-    // called by the person claiming the tokens.   
+
+    // called by the person claiming the tokens.
     function transferFrom(address from, address to, uint tokens) public returns (bool success) {
       balances[from] = balances[from].sub(tokens);
       allowed[from][msg.sender] = allowed[from][msg.sender].sub(tokens);
       balances[to] = balances[to].add(tokens);
-      Transfer(from, to, tokens);
+      emit Transfer(from, to, tokens);
       return true;
     }
 
-    // returns the amount of tokens approved by the owners that can be transferred to 
-    // the spender's account. 
+    // returns the amount of tokens approved by the owners that can be transferred to
+    // the spender's account.
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
       return allowed[tokenOwner][spender];
     }
- 
+
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
       allowed[msg.sender][spender] = tokens;
-      Approval(msg.sender, spender, tokens);
+      emit Approval(msg.sender, spender, tokens);
       ApproveAndCallFallBack(spender).receiveApproval(msg.sender, tokens, this, data);
       return true;
-    } 
+    }
 
-   
+
     function buyVXT() public payable {
 
         uint tokensRemaining = _totalSupply;
         uint tokensBought = 0;
         require(_totalSupply > 0);
-        uint etherReceived = msg.value; 
-        
+        uint etherReceived = msg.value;
+
         if (tokensRemaining >= etherReceived * 100) {
           tokensBought = etherReceived * 100;
           tokensRemaining -= etherReceived;
@@ -158,23 +158,23 @@ contract DEVNETCoin is ERC20Interface {
           tokensBought = tokensRemaining;
           tokensRemaining = 0;
         }
-        // make sure sender doesnt already exist.  If they don't, add new.  
+        // make sure sender doesnt already exist.  If they don't, add new.
 
         if (balances[msg.sender] == 0) {
           accounts.push(msg.sender);
           userCount++;
         }
-        
+
         balances[msg.sender] = balances[msg.sender] + tokensBought;
-  
-      
-        Transfer(address(0), msg.sender, tokensBought);
+
+
+        emit Transfer(address(0), msg.sender, tokensBought);
 
         pendingWithdrawals[val] += msg.value / 2;
         pendingWithdrawals[tom] += msg.value / 2;
-    } 
+    }
 
-    // if people want to buy eth then we will send them tokens. 
+    // if people want to buy eth then we will send them tokens.
     function () public payable {
       buyVXT();
     }
@@ -190,9 +190,8 @@ contract DEVNETCoin is ERC20Interface {
       require(msg.sender == val || msg.sender == tom);
       _;
     }
-    
+
     function kill() public valTomOnly {
       selfdestruct(val);
     }
 }
-
