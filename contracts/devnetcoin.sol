@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.21;
 
 // Code borrowed and modified from https://theethereum.wiki/w/index.php/ERC20_Token_Standard
 // Use is just an example for Cisco Live DEVNET class and is provided as is. 
@@ -62,7 +62,6 @@ contract DEVNETCoin is ERC20Interface {
     uint8 public decimals;
     uint public _totalSupply;
     // people that own our coin.
-    uint16 userCount;
     address[] public accounts;
     mapping(address => uint256) balances;
     // mapping of who can withdraw from who.
@@ -70,44 +69,26 @@ contract DEVNETCoin is ERC20Interface {
     mapping(address => uint) pendingWithdrawals;
     address public val;
     address public tom;
-    address public chris;
-    address public roger;
-    address public bryan;
-    address public hank;
 
     // Constructor when contract is created. 
-    function DEVNETCoin(address _val, address _tom, address _chris, address _hank, address _roger, address _bryan) public {
+    function DEVNETCoin(address _val, address _tom ) public {
       name = "DEVNET|Coin";
       symbol = "DEV";
       decimals = 18;
       _totalSupply = 24000000 * 10**uint(decimals);
       val = _val;
       tom = _tom;
-      chris = _chris;
-      hank = _hank;
-      bryan = _bryan;
-      roger = _roger;
-      balances[val] = _totalSupply / 12;
-      balances[tom] = _totalSupply / 12;
-      balances[chris] = _totalSupply / 12;
-      balances[hank] = _totalSupply / 12;
-      balances[bryan] = _totalSupply / 12;
-      balances[roger] = _totalSupply / 12;
+      balances[val] = _totalSupply / 4;
+      balances[tom] = _totalSupply / 4;
       accounts.push(val);
       accounts.push(tom);
-      userCount = 2;
-      emit Transfer(address(0), val, _totalSupply / 12);
-      emit Transfer(address(0), tom, _totalSupply / 12);
-      emit Transfer(address(0), chris, _totalSupply / 12);
-      emit Transfer(address(0), hank, _totalSupply / 12);
-      emit Transfer(address(0), bryan, _totalSupply / 12);
-      emit Transfer(address(0), roger, _totalSupply / 12);
-      // 10,500,000,000,000
+      emit Transfer(address(0), val, _totalSupply / 4);
+      emit Transfer(address(0), tom, _totalSupply / 4);
     }
 
     // get item count
     function getAccountQuantity() public constant returns (uint count) {
-      return userCount;
+      return accounts.length;
     }
 
     // get the total supply 
@@ -178,7 +159,6 @@ contract DEVNETCoin is ERC20Interface {
 
         if (balances[msg.sender] == 0) {
           accounts.push(msg.sender);
-          userCount++;
         }
         
         balances[msg.sender] = balances[msg.sender] + tokensBought;
@@ -186,9 +166,8 @@ contract DEVNETCoin is ERC20Interface {
       
         emit Transfer(address(0), msg.sender, tokensBought);
 
-        pendingWithdrawals[val] += msg.value / 3;
-        pendingWithdrawals[chris] += msg.value / 3;
-        pendingWithdrawals[tom] += msg.value / 3;
+        pendingWithdrawals[val] += msg.value / 2;
+        pendingWithdrawals[tom] += msg.value / 2;
     } 
 
     // if people want to buy eth then we will send them tokens. 
@@ -204,7 +183,7 @@ contract DEVNETCoin is ERC20Interface {
     }
 
     modifier usOnly() {
-      require(msg.sender == val || msg.sender == chris || msg.sender == tom);
+      require(msg.sender == val || msg.sender == tom);
       _;
     }
     

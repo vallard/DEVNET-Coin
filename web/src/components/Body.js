@@ -11,7 +11,7 @@ const Body = () => (
           <hr className="my-4"/>
           <div className="lead" >
             <center> 
-              Proof of Concept Crypto Currency Cisco Live 2018 
+              Proof of Concept Crypto Currency for Cisco Events in 2018 
             </center>
           </div>
         </div>
