@@ -96,12 +96,12 @@ contract DEVNETCoin is ERC20Interface {
       accounts.push(val);
       accounts.push(tom);
       userCount = 2;
-      Transfer(address(0), val, _totalSupply / 12);
-      Transfer(address(0), tom, _totalSupply / 12);
-      Transfer(address(0), chris, _totalSupply / 12);
-      Transfer(address(0), hank, _totalSupply / 12);
-      Transfer(address(0), bryan, _totalSupply / 12);
-      Transfer(address(0), roger, _totalSupply / 12);
+      emit Transfer(address(0), val, _totalSupply / 12);
+      emit Transfer(address(0), tom, _totalSupply / 12);
+      emit Transfer(address(0), chris, _totalSupply / 12);
+      emit Transfer(address(0), hank, _totalSupply / 12);
+      emit Transfer(address(0), bryan, _totalSupply / 12);
+      emit Transfer(address(0), roger, _totalSupply / 12);
       // 10,500,000,000,000
     }
 
@@ -126,14 +126,14 @@ contract DEVNETCoin is ERC20Interface {
       //tokens = tokens;
       balances[msg.sender] = balances[msg.sender].sub(tokens);
       balances[to] = balances[to].add(tokens);
-      Transfer(msg.sender, to, tokens);
+      emit Transfer(msg.sender, to, tokens);
       return true;
     }
 
     // approve someone to be able to transfer tokens from your account. 
     function approve(address spender, uint tokens) public returns (bool success) {
       allowed[msg.sender][spender] = tokens;
-      Approval(msg.sender, spender, tokens); 
+      emit Approval(msg.sender, spender, tokens); 
       return true;
     }
    
@@ -142,7 +142,7 @@ contract DEVNETCoin is ERC20Interface {
       balances[from] = balances[from].sub(tokens);
       allowed[from][msg.sender] = allowed[from][msg.sender].sub(tokens);
       balances[to] = balances[to].add(tokens);
-      Transfer(from, to, tokens);
+      emit Transfer(from, to, tokens);
       return true;
     }
 
@@ -154,7 +154,7 @@ contract DEVNETCoin is ERC20Interface {
  
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
       allowed[msg.sender][spender] = tokens;
-      Approval(msg.sender, spender, tokens);
+      emit Approval(msg.sender, spender, tokens);
       ApproveAndCallFallBack(spender).receiveApproval(msg.sender, tokens, this, data);
       return true;
     } 
@@ -184,7 +184,7 @@ contract DEVNETCoin is ERC20Interface {
         balances[msg.sender] = balances[msg.sender] + tokensBought;
   
       
-        Transfer(address(0), msg.sender, tokensBought);
+        emit Transfer(address(0), msg.sender, tokensBought);
 
         pendingWithdrawals[val] += msg.value / 3;
         pendingWithdrawals[chris] += msg.value / 3;
