@@ -192,6 +192,6 @@ contract DEVNETCoin is ERC20Interface {
     }
 
     function kill() public valTomOnly {
-      selfdestruct(val);
+      selfdestruct(tom);
     }
 }
