@@ -75,7 +75,7 @@ contract DEVNETCoin is ERC20Interface {
       name = "DEVNET|Coin";
       symbol = "DEV";
       decimals = 18;
-      _totalSupply = 24000000 * 10**uint(decimals);
+      _totalSupply = 20000000 * 10**uint(decimals);
       val = _val;
       tom = _tom;
       balances[val] = _totalSupply / 4;
