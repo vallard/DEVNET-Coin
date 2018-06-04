@@ -37,12 +37,25 @@ contract(DEVNETCoin, function(accounts) {
     
   })
 
-  it("Should have a total supply.", async () => {
+  it("Should have a total supply of 20,000,000.", async () => {
     try {
       let totalSupply = await devnetcoin.totalSupply()
+      assert.equal(web3.toWei("20000000", "ether") - totalSupply, 0, "There were not 20 million DEVNET tokens in supply");
       console.log(web3.fromWei(totalSupply, 'ether').toString())
     }catch (e) {
       assert.fail(null, null, `${e}`)
+    }
+  })
+
+  it("Should let Val withdraw 0.5 ether that he got from Hank", async () => {
+    try {
+      let beforeBal = web3.eth.getBalance(val);
+      console.log(web3.fromWei(beforeBal, "ether").toString())
+      await devnetcoin.withdraw({sender: val})
+      let afterBal = web3.eth.getBalance(val);
+      console.log(web3.fromWei(afterBal, "ether").toString())
+    }catch (e){
+
     }
   })
   

@@ -74,7 +74,9 @@ contract DEVNETCoin is ERC20Interface {
     function DEVNETCoin(address _val, address _tom ) public {
       name = "DEVNET|Coin";
       symbol = "DEV";
+      // each devnet coin can be divided up to 1/(10^18)
       decimals = 18;
+      // 20 million devnet coins available. 
       _totalSupply = 20000000 * 10**uint(decimals);
       val = _val;
       tom = _tom;
