@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getAddresses } from '../actions'
+import Body from '../components/Body'
 import VXT from '../components/VXT'
 
 class Contract extends Component {
@@ -12,11 +13,13 @@ class Contract extends Component {
   }
 
   componentDidMount() {
+    
     this.props.getAddresses()
   }
 
   // get more examples: https://github.com/katopz/web3-react-example/blob/master/src/App.js
   componentWillReceiveProps(nextProps) {
+    console.log("Getting addresses")
     this.setState({
       addresses: nextProps.addresses || [],
     })
@@ -25,6 +28,7 @@ class Contract extends Component {
   render() {
     return (
     <div>
+      <Body/>
       <VXT addresses={this.state.addresses}/>
     </div>
     )

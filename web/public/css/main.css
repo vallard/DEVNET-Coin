@@ -130,7 +130,7 @@ Feedback field
 
 .jumbotron {
   background-image: url("../images/earth2.png");
-  background-size: cover;
+  /*background-size: cover; */
   padding-top: 20%;
   padding-bottom: 20%;
   color: #fff;

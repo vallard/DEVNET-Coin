@@ -1,5 +1,5 @@
-export default function getAbi() { 
-  return [
+export const address = "0xc9e8db2294f6e74be82e4614e46413b41aa649b5"
+export const abiArray =  [
     {
       "constant": true,
       "inputs": [],
@@ -365,4 +365,3 @@ export default function getAbi() {
       "type": "event"
     }
   ];
-}

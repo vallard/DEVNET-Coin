@@ -9,7 +9,7 @@ const VXT = ({addresses}) => (
             <tr>
               <th scope="col">#</th>
               <th scope="col">Address</th>  
-              <th scope="col">Amount</th>
+              <th scope="col"># of Tokens</th>
             </tr>
           </thead>
           <tbody>
@@ -19,7 +19,7 @@ const VXT = ({addresses}) => (
                   <tr  key={a}>
                     <th scope="row">{ index }</th>
                     <td><a href={"https://kovan.etherscan.io/address/" + a[0]} > {a[0]}</a></td>
-                    <td>{a[1] / 10000 }</td>
+                    <td>{a[1]}</td>
                   </tr>
                   :
                   <tr key={a}>
