@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Body = () => (
+const Body = ({mm,buyCoin,address}) => (
     <div>
       <div className="jumbotron jumbotron-fluid">
         <div className="container">
@@ -22,21 +22,60 @@ const Body = () => (
         </p>
         <div className="card">
           <div className="card-body">
-            <h2 className="card-title"><b>Step 1:</b> Get Metamask</h2>
-            <p className="card-text">Think of Metamask as a simple bridge the Internet to the Ethereum network.  You download it as an extension to your web browser.
+            <h2 className="card-title"><b>Step 1:</b> Make an Ethereum Wallet</h2>
+            <p className="card-text">To create a wallet, head over to the digital wallet site of you choice and create your wallet following their instructions. <a href="https://www.myetherwallet.com">MyEtherWallet</a> is a good pick - that way you can then import the account into MetaMask and view it from there, should you wish.
             </p>
-            <a href="https://metamask.io" target="_blank">
-              <img src="https://raw.githubusercontent.com/MetaMask/faq/master/images/download-metamask.png"/>
-            </a>
           </div>
         </div>
-        <ol>
-          <li>To create a wallet, head over to the digital wallet site of you choice and create your wallet following their instructions. <a href="https://www.myetherwallet.com">MyEtherWallet</a> is a good pick - that way you can then import the account into MetaMask and view it from there, should you wish.</li>
-          <li>DevNetCoin is on the <a href="https://github.com/kovan-testnet/proposal">Kovan Test Ethereum Network</a>. So you’ll need to get some KETH to buy some DevNetCoin. Using the public key of the account you just created, go to the <a href="https://gitter.im/kovan-testnet/faucet">Keth Faucet</a> and enter that public key. Once acknowledged, 5 KETH will be deposited into your account.</li>
-          <li>Now send some of your KETH (1 KETH = 100 DevNetCoin) to the DevNetCoin Contract at the address: <a href="https://kovan.etherscan.io/token/0xc9e8db2294f6e74be82e4614e46413b41aa649b5">0xc9e8db2294f6e74be82e4614e46413b41aa649b5</a></li>
-          <li>You’re now the proud owner of DevNetCoin! Congratulations!</li>
-          <li>Want to waste real ethereum?  You can buy <a href="https://etherscan.io/token/0x41642b325a44df26357aad70f013d828f5adc52a">real DEVNETcoin</a> on the public network.  But really, you shouldn't do that.</li>
-        </ol>
+        <br/>
+        <div className="card">
+          <div className="card-body">
+            <h2 className="card-title"><b>Step 2:</b> Get Metamask</h2>
+            <p className="card-text">Think of Metamask as a simple bridge the Internet to the Ethereum network.  You download it as an extension to your web browser.
+            </p>
+            { mm ? 
+               mm === "connected" ? 
+                <div className="alert alert-success">
+                  <i className="fa fa-check-circle-o"></i> { mm }
+                </div>
+                :
+                <div className="alert alert-warning">{ mm }</div>
+             :
+            <a href="https://metamask.io" target="_blank" rel="noopener noreferrer">
+              <img src="https://raw.githubusercontent.com/MetaMask/faq/master/images/download-metamask.png" alt="Download Metamask"/>
+            </a>
+            }
+          </div>
+        </div>
+        <br/>
+        <div className="card">
+          <div className="card-body">
+            <h2 className="card-title"><b>Step 3:</b> Get Test Ether</h2>
+            <p className="card-text">DevNetCoin is on the <a href="https://github.com/kovan-testnet/proposal">Kovan Test Ethereum Network</a>. So you’ll need to get some KETH to buy some DevNetCoin. Using the public key of the account you just created, go to the <a href="https://gitter.im/kovan-testnet/faucet">Keth Faucet</a> and enter that public key. Once acknowledged, <strike>5</strike> 3 KETH will be deposited into your account.</p>
+          </div> 
+        </div>
+        <br/>
+        <div className="card">
+          <div className="card-body">
+            <h2 className="card-title"><b>Step 4:</b> Buy DEVNETCoinr</h2>
+            <p className="card-text">Now send some of your KETH (1 KETH = 100 DevNetCoin) to the DevNetCoin Contract at the address: <a href="{'https://kovan.etherscan.io/token/' + address }"> 
+            {address}
+            </a>
+            </p>
+            { mm === "connected" ? 
+              <button className="btn btn-primary btn-lg" onClick={buyCoin}>
+                Buy DEVNETCoin
+              </button>
+              :
+              <button className="btn btn-secondary btn-lg" disabled="true">
+                Get and Unlock Metamask to Buy DEVNET Coin
+              </button>
+            }
+          </div> 
+        </div>
+        <br/><br/>
+        You’re now the proud owner of DevNetCoin! Congratulations!
+        Want to waste real ethereum?  You can buy <a href="https://etherscan.io/token/0x41642b325a44df26357aad70f013d828f5adc52a">real DEVNETcoin</a> on the public network.  But really, you shouldn't do that.
       </div>
     </div>
 );
