@@ -57,7 +57,7 @@ const Body = ({mm,buyCoin,address}) => (
         <br/>
         <div className="card">
           <div className="card-body">
-            <h2 className="card-title"><b>Step 4:</b> Buy DEVNETCoinr</h2>
+            <h2 className="card-title"><b>Step 4:</b> Buy DEVNETCoin</h2>
             <p className="card-text">Now send some of your KETH (1 KETH = 100 DevNetCoin) to the DevNetCoin Contract at the address: <a href="{'https://kovan.etherscan.io/token/' + address }"> 
             {address}
             </a>

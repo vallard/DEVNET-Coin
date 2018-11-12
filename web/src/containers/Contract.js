@@ -50,7 +50,7 @@ class Contract extends Component {
     t.setState({isConnected: true})
     var p = new Web3(window.web3.currentProvider)
     t.setState({provider : p})
-    console.log('MetaMask is installed')
+    //console.log('MetaMask is installed')
     p.eth.getAccounts(function(err, acc) {
       if (err) {
         console.error(err)
@@ -97,7 +97,7 @@ class Contract extends Component {
 
   // get more examples: https://github.com/katopz/web3-react-example/blob/master/src/App.js
   componentWillReceiveProps(nextProps) {
-    console.log("Getting addresses")
+    //console.log("Getting addresses")
     this.setState({
       addresses: nextProps.addresses || [],
     })

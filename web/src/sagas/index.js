@@ -12,7 +12,7 @@ export function* get_addresses() {
   var w3 = new Web3(new Web3.providers.HttpProvider('https://kovan.infura.io/1r0bIX2eewb5e9m2WAug'));
   var bank = new w3.eth.Contract(contract.abiArray, contract.address)
   const numOfElements = yield bank.methods.getAccountQuantity().call()
-  console.log("number of elements = " + numOfElements)
+  //console.log("number of elements = " + numOfElements)
   for (let i = 0; i < numOfElements; i++) {
     var addr = yield bank.methods.accounts(i).call();
     const balance = yield bank.methods.balanceOf(addr).call();

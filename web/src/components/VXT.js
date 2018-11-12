@@ -2,8 +2,22 @@ import React from 'react'
 
 const VXT = ({addresses}) => (
     <div className="container">
-        <p></p>
-        <h1 className="header">Token Holders</h1>
+      <p></p>
+      <h1 className="header">Token Holders</h1>
+      { addresses.length === 0 ? 
+        <div className="row justify-content-center">
+          <div className="col-sm-4">
+            <div className="card loading">
+              <div className="card-body">
+                <h5 className="card-title">Fetching Token Holders from the Blockchain...</h5>
+                <h1 className="display-1">
+                  <i className="fa fa-circle-o-notch fa-spin"></i>
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        :
         <table className="table">
           <thead className="thead-dark">
             <tr>
@@ -30,6 +44,7 @@ const VXT = ({addresses}) => (
             )}
           </tbody>
         </table>
+        }
     </div>
 );
 export default VXT
