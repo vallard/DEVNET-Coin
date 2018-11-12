@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getAddresses } from '../actions'
 import Body from '../components/Body'
 import VXT from '../components/VXT'
+import Loading from '../components/Loading'
 import Web3 from 'web3';
 import * as contract from '../contract'
 
@@ -14,7 +15,9 @@ class Contract extends Component {
       mm: "",
       provider: "",
       isConnected: false, 
-      accounts: []
+      accounts: [],
+      working: false,
+      workingMessage: "Loading!"
     }
   
   }
@@ -66,9 +69,11 @@ class Contract extends Component {
   // function to buy DEVNETCoin
   buyCoin = () => {
     let t = this
+    t.setState({working: true})
+    t.setState({workingMessage: "Use Metamask to complete transaction"})
     let dncContract = new this.state.provider.eth.Contract(contract.abiArray, contract.address, { data: contract.bytecode });
-    console.log("get gas") 
     var eth = Web3.utils.toWei(".01", "ether")
+
     dncContract.methods.buyDEV().estimateGas(
       {
         from: t.state.accounts[0],
@@ -83,6 +88,7 @@ class Contract extends Component {
       }).then(function(receipt) {
         console.log("You bought DEVNET Coin!")
         console.log(receipt)
+        t.setState({working: false})
       })
     })
     
@@ -100,6 +106,7 @@ class Contract extends Component {
   render() {
     return (
     <div>
+      <Loading working={this.state.working} workingMessage={this.state.workingMessage}/>
       <Body mm={this.state.mm} buyCoin={this.buyCoin} address={contract.address}/>
       <VXT addresses={this.state.addresses}/>
     </div>
